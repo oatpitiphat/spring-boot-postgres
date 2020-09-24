@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: "alter table user add field description"
+      author: pitiphat.kha
+      changes:
+        - addColumn:
+            tableName: user
+            columns:
+                - column:
+                    name: description
+                    type: varchar(500)
