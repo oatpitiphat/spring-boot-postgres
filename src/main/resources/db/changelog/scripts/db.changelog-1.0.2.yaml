@@ -5,6 +5,7 @@ databaseChangeLog:
       changes:
         - addColumn:
             tableName: user
+            schemaName: dbo
             columns:
                 - column:
                     name: description
