@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @ControllerAdvice
-public class ResAPIExceptionHandler extends ResponseEntityExceptionHandler
+public class RestExceptionHandler extends ResponseEntityExceptionHandler
 {
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
