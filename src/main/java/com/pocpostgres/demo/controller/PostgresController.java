@@ -1,6 +1,7 @@
 package com.pocpostgres.demo.controller;
 
 import com.pocpostgres.demo.model.User;
+import com.pocpostgres.demo.model.UserReq;
 import com.pocpostgres.demo.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.persistence.criteria.CriteriaBuilder;
+import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -68,11 +69,10 @@ public class PostgresController {
     }
 
     @PostMapping(path = "/api/user/save")
-    public ResponseEntity createUser(@RequestBody User user) {
+    public ResponseEntity createUser(@Valid @RequestBody UserReq user) {
         try {
-            System.out.println(user);
-           User response = userService.createUser(user);
-           return new ResponseEntity(response, HttpStatus.OK);
+//           User response = userService.createUser(user);
+           return new ResponseEntity(user, HttpStatus.OK);
         } catch (Exception ex) {
             ex.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
