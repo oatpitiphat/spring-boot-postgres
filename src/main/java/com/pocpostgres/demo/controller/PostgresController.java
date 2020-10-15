@@ -1,7 +1,8 @@
 package com.pocpostgres.demo.controller;
 
+import com.pocpostgres.demo.model.BudgetStructure;
 import com.pocpostgres.demo.model.User;
-import com.pocpostgres.demo.model.UserReq;
+import com.pocpostgres.demo.service.BudgetStructureService;
 import com.pocpostgres.demo.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +29,9 @@ public class PostgresController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    BudgetStructureService budgetStructureService;
 
     @GetMapping(path = "/api/user/getData")
     public ResponseEntity getUser() {
@@ -69,10 +73,10 @@ public class PostgresController {
     }
 
     @PostMapping(path = "/api/user/save")
-    public ResponseEntity createUser(@Valid @RequestBody UserReq user) {
+    public ResponseEntity createUser(@Valid @RequestBody User user) {
         try {
-//           User response = userService.createUser(user);
-           return new ResponseEntity(user, HttpStatus.OK);
+           User response = userService.createUser(user);
+           return new ResponseEntity(response, HttpStatus.OK);
         } catch (Exception ex) {
             ex.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -94,5 +98,18 @@ public class PostgresController {
     public ResponseEntity getAllByRole(@RequestParam String search) {
         List<User> users = userService.getAllByRoleName(search);
         return new ResponseEntity(users, HttpStatus.OK);
+    }
+
+
+    @GetMapping(path = "/api/budget/structures")
+    public ResponseEntity getAllStructure() {
+        List<BudgetStructure> list = budgetStructureService.getAll();
+        return new ResponseEntity(list, HttpStatus.OK);
+    }
+
+    @PostMapping(path = "/api/budget/structure")
+    public ResponseEntity saveStructure(@Valid @RequestBody BudgetStructure structure) {
+        BudgetStructure data = budgetStructureService.save(structure);
+        return new ResponseEntity(data, HttpStatus.OK);
     }
 }
