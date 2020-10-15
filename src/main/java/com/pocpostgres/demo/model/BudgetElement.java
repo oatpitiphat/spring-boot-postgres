@@ -1,6 +1,5 @@
 package com.pocpostgres.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -18,23 +17,18 @@ public class BudgetElement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "budget_element_id")
-    @JsonProperty("BudgetElementID")
-    private Integer BudgetElementID;
+    private Integer budgetElementID;
 
     @Column(name = "budget_structure_id")
-    @JsonProperty("BudgetStructureID")
-    private Integer BudgetStructureID;
+    private Integer budgetStructureID;
 
     @NotEmpty
     @Column(name = "budget_element_code")
-    @JsonProperty("BudgetElementCode")
-    private String BudgetElementCode;
+    private String budgetElementCode;
 
     @Column(name = "budget_element_desc")
-    @JsonProperty("BudgetElementDesc")
-    private String BudgetElementDesc;
+    private String budgetElementDesc;
 
     @Column(name = "is_deleted")
-    @JsonProperty("IsDeleted")
-    private Boolean IsDeleted;
+    private Boolean isDeleted;
 }

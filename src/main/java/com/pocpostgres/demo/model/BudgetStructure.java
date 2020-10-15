@@ -1,6 +1,5 @@
 package com.pocpostgres.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.persistence.CascadeType;
@@ -12,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
@@ -22,25 +22,21 @@ public class BudgetStructure {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "budget_structure_id")
-    @JsonProperty("BudgetStructureID")
-    private Integer BudgetStructureID;
+    private Integer budgetStructureID;
 
     @NotEmpty
     @Column(name = "budget_structure_name")
-    @JsonProperty("BudgetStructureName")
-    private String BudgetStructureName;
+    private String budgetStructureName;
 
     @NotEmpty
     @Column(name = "budget_structure_desc")
-    @JsonProperty("BudgetStructureDesc")
-    private String BudgetStructureDesc;
+    private String budgetStructureDesc;
 
     @Column(name = "is_deleted")
-    @JsonProperty("IsDeleted")
-    private Boolean IsDeleted;
+    private Boolean isDeleted;
 
+    @Valid
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "budget_structure_id")
-    @JsonProperty("BudgetElements")
-    private List<BudgetElement> BudgetElements;
+    private List<BudgetElement> budgetElements;
 }
