@@ -5,9 +5,9 @@ import com.pocpostgres.demo.exception.model.ErrorResponseBase;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.context.request.ServletWebRequest;
@@ -40,15 +40,15 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler
     }
 
     @Override
-    protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+    protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus httpStatus, WebRequest request) {
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        List<ErrorFieldDetail> fields = new ArrayList<>();
         String pathUrl = ((ServletWebRequest)request).getRequest().getRequestURI().toString();
         ErrorResponseBase error = new ErrorResponseBase();
-        error.setMessage("No message available");
+        error.setMessage("Validate Failed");
+        error.setError(ex.getMessage());
         error.setPath(pathUrl);
-        error.setStatus(HttpStatus.METHOD_NOT_ALLOWED.value());
-        error.setError("Mothod Not Allowed");
-        return new ResponseEntity(error, HttpStatus.METHOD_NOT_ALLOWED);
+        error.setStatus(HttpStatus.UNPROCESSABLE_ENTITY.value());
+        return new ResponseEntity(error, HttpStatus.UNPROCESSABLE_ENTITY);
     }
-
-
 }

@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Data
@@ -34,6 +35,9 @@ public class BudgetStructure {
 
     @Column(name = "is_deleted")
     private Boolean isDeleted;
+
+    @NotNull
+    private Integer num;
 
     @Valid
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
