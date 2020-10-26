@@ -2,6 +2,7 @@ package com.pocpostgres.demo.controller;
 
 import com.pocpostgres.demo.model.BudgetStructure;
 import com.pocpostgres.demo.model.User;
+import com.pocpostgres.demo.repository.BudgetStructureResositoryImpl;
 import com.pocpostgres.demo.service.BudgetStructureService;
 import com.pocpostgres.demo.service.UserService;
 import org.slf4j.Logger;
@@ -32,6 +33,9 @@ public class PostgresController {
 
     @Autowired
     BudgetStructureService budgetStructureService;
+
+    @Autowired
+    BudgetStructureResositoryImpl budgetStructureResositoryImpl;
 
     @GetMapping(path = "/api/user/getData")
     public ResponseEntity getUser() {
@@ -111,5 +115,12 @@ public class PostgresController {
     public ResponseEntity saveStructure(@Valid @RequestBody BudgetStructure structure) {
         BudgetStructure data = budgetStructureService.save(structure);
         return new ResponseEntity(data, HttpStatus.OK);
+    }
+
+
+    @GetMapping(path = "/api/budget/test")
+    public ResponseEntity getList() {
+        List<BudgetStructure> list = budgetStructureService.getList();
+        return new ResponseEntity(list, HttpStatus.OK);
     }
 }
